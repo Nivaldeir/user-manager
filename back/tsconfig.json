@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "target": "ES2016",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist/src",
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "./src/**/*",
+    "./src"
+  ],
+  "exclude": [
+    "./dist",
+    "node_modules"
+  ]
+}
