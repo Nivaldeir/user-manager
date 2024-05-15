@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserAuthentication {
+  id         String       @id @unique @default(uuid())
+  username   String?      @unique
+  email      String       @unique
+  password   String
+  enabled    Boolean?     @default(true)
+  salt       String
+  permission Permission[]
+  role       Role         @relation(fields: [roleId], references: [id])
+  loginAudit LoginAudit[]
+  roleId     String
+}
+
+model LoginAudit {
+  id                   String  @unique @default(uuid())
+  ip                   String
+  device               String
+  location             String
+  success              Boolean
+  createdAt            String  @map("created_at")
+  userAuthenticationId String
+
+  user UserAuthentication @relation(fields: [userAuthenticationId], references: [id])
+}
+
+model Role {
+  id                 String               @id @unique @default(uuid())
+  name               String               @unique
+  userAuthentication UserAuthentication[]
+  permission         Permission[]
+}
+
+model Permission {
+  id    String               @id @unique @default(uuid())
+  name  String               @unique
+  users UserAuthentication[]
+  role  Role[]
+}
