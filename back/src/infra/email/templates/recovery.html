@@ -1,0 +1,89 @@
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            background-color: rgb(49, 49, 49);
+            display: flex;
+            justify-content: center;
+            font-family: "Poppins", sans-serif;
+            color: white;
+        }
+
+        section {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        header {
+            width: 100%;
+            display: flex;
+            height: 40px;
+            background: rgb(43, 43, 43);
+            justify-content: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+            font-weight: 800;
+            cursor: pointer;
+            background-color: rgb(201, 201, 41);
+            padding: .5rem;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        a:hover{
+            filter: brightness(110%);
+        }
+
+        .content {
+            display: flex;
+            padding: 1rem;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        footer p {
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <header></header>
+        <table>
+            <tr>
+                <h1>Alteração de senha</h1>
+            </tr>
+            <tr>
+
+            </tr>
+            <tr>
+                <div>
+                    <p>Você solicitou alteração de senha</p>
+                </div>
+            </tr>
+            <tr>
+                <a href="{{link}}">
+                    Alterar senha
+                </a>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+            </tr>
+        </table>
+        <footer>
+            <p>
+                Esta é uma mensagem automática, não respondas.
+            </p>
+        </footer>
+    </section>
+</body>
