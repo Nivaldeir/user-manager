@@ -13,12 +13,11 @@ export const authNextOptions: NextAuthOptions = {
           const response = await instance.post(
             "http://localhost:8081/auth/sign-in",
             {
-              email: "member-silvar@hotmail.com",
-              password: "123",
+              email: credentials.email,
+              password: credentials.password,
             }
           );
           if (response.status === 200) {
-            console.log(response.data.data);
             cookies().set("jwt", `Bearer ${response.data.data.token}`);
             return response.data.data;
           }

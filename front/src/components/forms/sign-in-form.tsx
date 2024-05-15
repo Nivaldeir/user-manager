@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { signInSchema } from "@/types/schemas/sign-in-schema";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 export function SignInForm() {
   const form = useForm<z.infer<typeof signInSchema>>({
@@ -34,33 +35,18 @@ export function SignInForm() {
           className="flex flex-col bg-black/40 p-5 rounded-lg gap-4"
           onSubmit={form.handleSubmit(handleSubmit)}
         >
-          <div className="flex gap-2 items-center">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Email" {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <span className="px-2 text-muted-foreground mt-6">Ou</span>
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Username" {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-          </div>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="Email" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="password"
@@ -78,14 +64,19 @@ export function SignInForm() {
             Logar
           </Button>
         </form>
+
         <div className="relative">
-          <div className="absolute inset-0 flex items-center">
+          <div className="absolute inset-0 flex items-center -mt-12">
             <span className="w-full border-t" />
           </div>
+
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
-            </span>
+            <Link
+              href={"/sign-up"}
+              className="bg-background px-2 text-muted-foreground "
+            >
+              Registrar
+            </Link>
           </div>
         </div>
       </Form>
