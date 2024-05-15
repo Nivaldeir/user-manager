@@ -3,7 +3,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 
-export const authNextOptions: NextAuthOptions = {
+const authNextOptions: NextAuthOptions = {
   providers: [
     Credentials({
       credentials: {},
