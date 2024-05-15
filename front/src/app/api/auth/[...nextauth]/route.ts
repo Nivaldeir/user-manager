@@ -1,6 +1,5 @@
 import instance from "@/lib/axios";
-import { NextAuthOptions } from "next-auth";
-import NextAuth from "next-auth/next";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 
@@ -10,13 +9,10 @@ export const authNextOptions: NextAuthOptions = {
       credentials: {},
       authorize: async (credentials: any) => {
         try {
-          const response = await instance.post(
-            "http://localhost:8081/auth/sign-in",
-            {
-              email: credentials.email,
-              password: credentials.password,
-            }
-          );
+          const response = await instance.post(process.env.URL_BACKEND!, {
+            email: credentials.email,
+            password: credentials.password,
+          });
           if (response.status === 200) {
             cookies().set("jwt", `Bearer ${response.data.data.token}`);
             return response.data.data;
