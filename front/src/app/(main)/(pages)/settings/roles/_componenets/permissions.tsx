@@ -34,6 +34,7 @@ export const Permissions = ({ permissioes, roleId }: PermissionsProps) => {
           <aside className="flex gap-4 flex-wrap justify-between  overflow-scroll h-[43vh] w-full">
             {permission?.map((p, index) => (
               <Permission
+                key={p.name + index.toString()}
                 name={p.name}
                 roleId={roleId}
                 isExist={!!permissioes.find((e) => e.name === p.name)}
