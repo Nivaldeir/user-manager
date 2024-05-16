@@ -9,9 +9,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (!pathname.startsWith("/sign-in") && !pathname.startsWith("/sign-up")) {
-    return NextResponse.redirect(new URL("/sign-in", request.url));
-  }
+  // if (
+  //   !pathname.startsWith("/sign-in") &&
+  //   !pathname.startsWith("/sign-up")
+  // ) {
+  //   return NextResponse.redirect(new URL("/sign-in", request.url));
+  // }
   return NextResponse.next();
 }
 
