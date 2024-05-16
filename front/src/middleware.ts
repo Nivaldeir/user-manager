@@ -19,7 +19,7 @@ export function middleware(request: NextRequest) {
     !pathname.startsWith("/sign-in") &&
     !pathname.startsWith("/sign-up")
   ) {
-    return NextResponse.redirect(new URL("/sign-in", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();
