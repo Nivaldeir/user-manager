@@ -15,7 +15,6 @@ const authNextOptions: NextAuthOptions = {
             password: "123",
           });
           if (response.status === 200) {
-            console.log(response.data.data);
             cookies().set("jwt", `Bearer ${response.data.data.token}`);
             return response.data.data;
           }
@@ -28,7 +27,6 @@ const authNextOptions: NextAuthOptions = {
     signIn: "/sign-in",
     error: "/sign-in",
     verifyRequest: "/sign-in",
-    newUser: "/app",
   },
   callbacks: {
     async jwt({ token, user }) {
