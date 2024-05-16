@@ -15,6 +15,7 @@ const authNextOptions: NextAuthOptions = {
             password: "123",
           });
           if (response.status === 200) {
+            console.log(response);
             cookies().set("jwt", `Bearer ${response.data.data.token}`);
             return response.data.data;
           }
