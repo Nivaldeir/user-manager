@@ -9,7 +9,6 @@ const authNextOptions: NextAuthOptions = {
       credentials: {},
       authorize: async (credentials: any) => {
         try {
-          console.log(process.env.URL_BACKEND!);
           const response = await instance.post(
             `${process.env.URL_BACKEND!}/auth/sign-in`,
             {
@@ -17,6 +16,7 @@ const authNextOptions: NextAuthOptions = {
               password: credentials.password,
             }
           );
+          console.log("RESPONSE", response.data);
           if (response.status === 200) {
             //   cookies().set("jwt", `Bearer ${response.data.data.token}`);
             //   return response.data.data;
