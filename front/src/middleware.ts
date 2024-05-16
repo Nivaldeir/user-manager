@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const tokenNext = request.cookies.get("next-auth.session-token");
+  const tokenNext = request.cookies.get("__Secure-next-auth.session-token");
   const tokenBackend = request.cookies.get("jwt");
 
   const pathname = request.nextUrl.pathname;
@@ -9,6 +9,7 @@ export function middleware(request: NextRequest) {
   if (pathname === "/sign-in" && tokenNext && tokenBackend) {
     return NextResponse.redirect(new URL("/", request.url));
   }
+
   if (
     !tokenNext &&
     !pathname.startsWith("/sign-in") &&
