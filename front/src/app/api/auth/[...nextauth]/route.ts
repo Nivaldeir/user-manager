@@ -10,17 +10,19 @@ const authNextOptions: NextAuthOptions = {
       credentials: {},
       authorize: async (credentials: any) => {
         try {
-          const response = await instance.post("/auth/sign-in", {
+          console.log(credentials);
+          const response = await instance.post("auth/signin", {
             email: "member-silvar@hotmail.com",
             password: "123",
           });
-          console.log(response);
           if (response.status === 200) {
             cookies().set("jwt", `Bearer ${response.data.data.token}`);
             return response.data.data;
           }
           throw new Error("Senha incorreta");
-        } catch (error) {}
+        } catch (error) {
+          console.error("ERROR", error);
+        }
       },
     }),
   ],
