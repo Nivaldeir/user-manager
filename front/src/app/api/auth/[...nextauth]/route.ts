@@ -1,8 +1,6 @@
 import instance from "@/lib/axios";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { cookies } from "next/headers";
-
 const authNextOptions: NextAuthOptions = {
   providers: [
     Credentials({
@@ -29,12 +27,12 @@ const authNextOptions: NextAuthOptions = {
       },
     }),
   ],
-  pages: {
-    signIn: "/sign-in",
-    error: "/sign-in",
-    verifyRequest: "/sign-in",
-    newUser: "/app",
-  },
+  // pages: {
+  //   signIn: "/sign-in",
+  //   error: "/sign-in",
+  //   verifyRequest: "/sign-in",
+  //   newUser: "/app",
+  // },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
