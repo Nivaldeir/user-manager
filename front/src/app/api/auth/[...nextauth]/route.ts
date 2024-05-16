@@ -14,8 +14,8 @@ const authNextOptions: NextAuthOptions = {
             email: "member-silvar@hotmail.com",
             password: "123",
           });
+          console.log(response);
           if (response.status === 200) {
-            console.log(response);
             cookies().set("jwt", `Bearer ${response.data.data.token}`);
             return response.data.data;
           }
@@ -24,11 +24,6 @@ const authNextOptions: NextAuthOptions = {
       },
     }),
   ],
-  pages: {
-    signIn: "/sign-in",
-    error: "/sign-in",
-    verifyRequest: "/sign-in",
-  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
