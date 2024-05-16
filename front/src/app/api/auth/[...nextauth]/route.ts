@@ -1,6 +1,7 @@
 import instance from "@/lib/axios";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { cookies } from "next/headers";
 const authNextOptions: NextAuthOptions = {
   providers: [
     Credentials({
@@ -16,10 +17,9 @@ const authNextOptions: NextAuthOptions = {
           );
           console.log("RESPONSE", response.data);
           if (response.status === 200) {
-            //   cookies().set("jwt", `Bearer ${response.data.data.token}`);
-            //   return response.data.data;
+            cookies().set("jwt", `Bearer ${response.data.data.token}`);
+            return response.data.data;
           }
-          return {} as any;
           // throw new Error("Senha incorreta");
         } catch (error) {
           console.log(error);
