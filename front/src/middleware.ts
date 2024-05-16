@@ -5,12 +5,12 @@ export function middleware(request: NextRequest) {
   const tokenBackend = request.cookies.get("jwt");
 
   const pathname = request.nextUrl.pathname;
-  console.log(pathname);
   if (
     (pathname === "/sign-in" || pathname === "/sign-up") &&
     tokenNext &&
     tokenBackend
   ) {
+    console.log("13", pathname);
     return NextResponse.redirect(new URL("/", request.url));
   }
 
@@ -19,9 +19,10 @@ export function middleware(request: NextRequest) {
     !pathname.startsWith("/sign-in") &&
     !pathname.startsWith("/sign-up")
   ) {
-    return NextResponse.redirect(new URL("/", request.url));
+    console.log("22", pathname);
+    return NextResponse.redirect(new URL("/sign-in", request.url));
   }
-
+  console.log("25", pathname);
   return NextResponse.next();
 }
 
