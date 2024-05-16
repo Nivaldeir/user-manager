@@ -5,11 +5,7 @@ export function middleware(request: NextRequest) {
   const tokenBackend = request.cookies.get("jwt");
 
   const pathname = request.nextUrl.pathname;
-  if (
-    (pathname === "/sign-in" || pathname === "/sign-up") &&
-    tokenNext &&
-    tokenBackend
-  ) {
+  if (tokenNext && tokenBackend) {
     console.log("13", pathname);
     return NextResponse.redirect(new URL("/", request.url));
   }
