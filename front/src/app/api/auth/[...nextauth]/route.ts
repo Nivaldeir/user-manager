@@ -19,7 +19,9 @@ const authNextOptions: NextAuthOptions = {
             return response.data.data;
           }
           throw new Error("Senha incorreta");
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       },
     }),
   ],
