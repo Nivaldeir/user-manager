@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
   const tokenBackend = request.cookies.get("jwt");
 
   const pathname = request.nextUrl.pathname;
-
+  console.log(pathname);
   if (
     (pathname === "/sign-in" || pathname === "/sign-up") &&
     tokenNext &&
