@@ -8,13 +8,9 @@ export function middleware(request: NextRequest) {
 
   // Se ambos os tokens estão presentes, permitir acesso
   if (tokenNext && tokenBackend) {
-    if (pathname === "/sign-in" || pathname === "/sign-up") {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-    return NextResponse.next();
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // Se nenhum token está presente e a rota não é sign-in ou sign-up, redirecionar para /sign-in
   if (
     !tokenNext &&
     !pathname.startsWith("/sign-in") &&
