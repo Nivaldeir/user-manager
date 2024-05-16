@@ -26,6 +26,8 @@ export function SignInForm() {
   const handleSubmit = async (data: z.infer<typeof signInSchema>) => {
     await signIn("credentials", {
       ...data,
+      redirect: true,
+      callbackUrl: "/",
     });
   };
   return (

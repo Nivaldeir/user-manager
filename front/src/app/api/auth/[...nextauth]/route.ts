@@ -27,12 +27,6 @@ const authNextOptions: NextAuthOptions = {
       },
     }),
   ],
-  // pages: {
-  //   signIn: "/sign-in",
-  //   error: "/sign-in",
-  //   verifyRequest: "/sign-in",
-  //   newUser: "/app",
-  // },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
