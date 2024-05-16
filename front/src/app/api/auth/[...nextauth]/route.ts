@@ -17,10 +17,11 @@ const authNextOptions: NextAuthOptions = {
               password: credentials.password,
             }
           );
-          // if (response.status === 200) {
-          //   cookies().set("jwt", `Bearer ${response.data.data.token}`);
-          //   return response.data.data;
-          // }
+          if (response.status === 200) {
+            //   cookies().set("jwt", `Bearer ${response.data.data.token}`);
+            //   return response.data.data;
+          }
+          return {} as any;
           // throw new Error("Senha incorreta");
         } catch (error) {
           console.log(error);
