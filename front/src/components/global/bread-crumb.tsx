@@ -18,9 +18,7 @@ const Breadcrumb = () => {
             return (
               <>
                 <BreadcrumbItem key={e + "_" + index}>
-                  <BreadcrumbLink href={`http://localhost:3000/${e}`}>
-                    {e}
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href={e}>{e}</BreadcrumbLink>
                 </BreadcrumbItem>
                 {index != url.split("/").length - 1 && <BreadcrumbSeparator />}
               </>

@@ -25,7 +25,7 @@ export function SignUpForm() {
     resolver: zodResolver(signInSchema),
   });
   const handleSubmit = async (data: z.infer<typeof signInSchema>) => {
-    const response = await instance.post("http://localhost:8081/user", data);
+    const response = await instance.post("/user", data);
     if (response.status === 201) {
       form.reset();
       router.push("/sign-in");

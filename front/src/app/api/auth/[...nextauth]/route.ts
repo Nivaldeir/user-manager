@@ -9,6 +9,7 @@ const authNextOptions: NextAuthOptions = {
       credentials: {},
       authorize: async (credentials: any) => {
         try {
+          console.log(process.env.URL_BACKEND!);
           const response = await instance.post(process.env.URL_BACKEND!, {
             email: credentials.email,
             password: credentials.password,
