@@ -11,7 +11,7 @@ const authNextOptions: NextAuthOptions = {
       authorize: async (credentials: any) => {
         try {
           console.log(credentials);
-          const response = await instance.post("auth/signin", {
+          const response = await instance.post("auth/sign-in", {
             email: "member-silvar@hotmail.com",
             password: "123",
           });
