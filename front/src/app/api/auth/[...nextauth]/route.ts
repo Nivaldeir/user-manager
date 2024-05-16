@@ -1,32 +1,35 @@
 import instance from "@/lib/axios";
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth/next";
 import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
+
 const authNextOptions: NextAuthOptions = {
   providers: [
     Credentials({
       credentials: {},
       authorize: async (credentials: any) => {
         try {
-          const response = await instance.post(
-            `${process.env.URL_BACKEND!}/auth/sign-in`,
-            {
-              email: credentials.email,
-              password: credentials.password,
-            }
-          );
-          console.log("RESPONSE", response.data);
+          const response = await instance.post("/auth/sign-in", {
+            email: "member-silvar@hotmail.com",
+            password: "123",
+          });
           if (response.status === 200) {
+            console.log(response.data.data);
             cookies().set("jwt", `Bearer ${response.data.data.token}`);
             return response.data.data;
           }
-          // throw new Error("Senha incorreta");
-        } catch (error) {
-          console.log(error);
-        }
+          throw new Error("Senha incorreta");
+        } catch (error) {}
       },
     }),
   ],
+  pages: {
+    signIn: "/sign-in",
+    error: "/sign-in",
+    verifyRequest: "/sign-in",
+    newUser: "/app",
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {

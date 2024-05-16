@@ -17,6 +17,7 @@ import { z } from "zod";
 import { signInSchema } from "@/types/schemas/sign-in-schema";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { toast } from "../ui/use-toast";
 
 export function SignInForm() {
   const form = useForm<z.infer<typeof signInSchema>>({
@@ -24,10 +25,12 @@ export function SignInForm() {
     resolver: zodResolver(signInSchema),
   });
   const handleSubmit = async (data: z.infer<typeof signInSchema>) => {
-    await signIn("credentials", {
+    const output = await signIn("credentials", {
       ...data,
-      redirect: true,
-      callbackUrl: "/",
+    });
+    console.log(output);
+    toast({
+      title: JSON.stringify(output),
     });
   };
   return (
