@@ -9,13 +9,15 @@ export function middleware(request: NextRequest) {
   if (pathname === "/sign-in" && tokenNext && tokenBackend) {
     return NextResponse.redirect(new URL("/", request.url));
   }
-  if (
-    !tokenNext &&
-    !pathname.startsWith("/sign-in") &&
-    !pathname.startsWith("/sign-up")
-  ) {
+  if (!tokenNext && !pathname.startsWith("/sign-up")) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
+  // if (
+  //   !pathname.startsWith("/sign-in") &&
+  //   !pathname.startsWith("/sign-up")
+  // ) {
+  //   return NextResponse.redirect(new URL("/sign-in", request.url));
+  //
   return NextResponse.next();
 }
 
