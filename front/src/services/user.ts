@@ -17,11 +17,9 @@ type UpdateUser = {
   id: string;
 };
 export const getUsers = async () => {
-  console.log("AQUI", process.env.NEXT_PUBLIC_BACKEND_API);
   const response = await instance.get("/user", {
     headers: { Authorization: await getCookies("jwt") },
   });
-  console.log("Data", response);
   return response.data;
 };
 export const updateUser = async (user: UpdateUser) => {
