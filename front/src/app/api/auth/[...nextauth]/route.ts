@@ -12,8 +12,8 @@ const authNextOptions: NextAuthOptions = {
         try {
           console.log(credentials);
           const response = await instance.post("/auth/sign-in", {
-            email: "member-silvar@hotmail.com",
-            password: "123",
+            email: credentials.email,
+            password: credentials.password,
           });
           if (response.status === 200) {
             cookies().set("jwt", `Bearer ${response.data.data.token}`);
