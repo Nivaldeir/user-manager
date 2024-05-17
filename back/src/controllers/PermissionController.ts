@@ -24,7 +24,6 @@ export default class PermissionController extends HttpController {
       url: "/permission",
       callback: this.create.bind(this)
     });
-
     this.httpServer.on({
       method: "put",
       url: "/permission/:id",

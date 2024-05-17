@@ -32,7 +32,7 @@ npm run start
 
 ## Documentação da API
 
-http://localhost:8080/docs
+http://localhost:8081/docs
 
 ## ✒️ Authors
 

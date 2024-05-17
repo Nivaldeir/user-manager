@@ -3,9 +3,9 @@ import { IPermissionRepository } from "../../application/repository/iPermission"
 import { ErrorHandler } from "../errors/PrismaError";
 
 export class PermissionRepositoryDatabase implements IPermissionRepository {
-  private readonly errorHandler: ErrorHandler
+  private readonly errorHandler: ErrorHandler;
   constructor(private readonly db: PrismaClient["permission"]) {
-    this.errorHandler = new ErrorHandler()
+    this.errorHandler = new ErrorHandler();
   }
   async connectToRole({
     idPermission,
@@ -35,20 +35,32 @@ export class PermissionRepositoryDatabase implements IPermissionRepository {
   }
   async delete(id: string): Promise<boolean> {
     try {
-      const permission = await this.db.findUnique({
-        where: {
-          id: id
-        },
-        include: { role: true }
-      });
-
-      const hasUserAuthenticationRole = permission.role.some(role => role.name);
-      if (hasUserAuthenticationRole) {
-        throw new Error("Existe usuario/cargo com esta permissão")
-      }
       await this.db.delete({
-        where: { id: id }
+        where: {
+          id: id,
+          NOT: [
+            {
+              users: {
+                some: {
+                  permission: {
+                    some: {
+                      id,
+                    },
+                  },
+                },
+              },
+            },
+            {
+              role: {
+                some: {
+                  id: id,
+                },
+              },
+            },
+          ],
+        },
       });
+      return true;
     } catch (error) {
       return this.errorHandler.handle(error);
     }

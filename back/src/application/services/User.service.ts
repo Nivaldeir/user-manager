@@ -1,29 +1,40 @@
 import { UserAuthentication } from "@prisma/client";
-import { IUserAuthenticationRepository, UserAuthenticationReturn, UserAuthenticationWithInclude } from "../repository/iUserAuthentication";
+import { IUserAuthenticationRepository } from "../repository/iUserAuthentication";
 import { Email } from "./Email";
 import Password from "./Password.service";
-import { ICache } from "../../infra/cache/ICache";
-import Injectable from "../../infra/di/Injectable";
 import Observable from "../observer/Observable";
 
 export default class UserService extends Observable {
-  @Injectable("cache")
-  private readonly cache: ICache
-  constructor(private readonly repository: IUserAuthenticationRepository, private readonly passwordService: Password) {
-    super()
+  constructor(
+    private readonly repository: IUserAuthenticationRepository,
+    private readonly passwordService: Password
+  ) {
+    super();
   }
-  async deleteByPermission({ userId, permission }: { userId: string, permission: string }): Promise<any> {
-    await this.repository.deleteByPermission({ userId, permission })
+  async deleteByPermission({
+    userId,
+    permission,
+  }: {
+    userId: string;
+    permission: string;
+  }): Promise<any> {
+    await this.repository.deleteByPermission({ userId, permission });
     this.notify("update-permission", { userId });
-    console.log("Deleting", permission)
+    console.log("Deleting", permission);
   }
-  async addingByPermission({ userId, permission }: { userId: string, permission: string }): Promise<any> {
-    await this.repository.addingByPermission({ userId, permission })
+  async addingByPermission({
+    userId,
+    permission,
+  }: {
+    userId: string;
+    permission: string;
+  }): Promise<any> {
+    await this.repository.addingByPermission({ userId, permission });
   }
   async gettingPermissions(userId: string) {
     var user = await this.repository.findByUnique({
       where: {
-        id: userId
+        id: userId,
       },
       include: {
         permission: true,
@@ -48,14 +59,17 @@ export default class UserService extends Observable {
         enabled: user.enabled,
         id: user.id,
         password: user.password,
-        role: user.role.name
+        role: user.role.name,
       },
       permissions,
-    }
+    };
   }
-  async save(
-    input: { username?: string, email: string, password: string, id?: string }
-  ): Promise<any> {
+  async save(input: {
+    username?: string;
+    email: string;
+    password: string;
+    id?: string;
+  }): Promise<any> {
     const isValidEmail = new Email(input.email);
     const passwordHash = this.passwordService.hashPassword(input.password);
     return await this.repository.save({
@@ -91,22 +105,26 @@ export default class UserService extends Observable {
       throw new Error(error);
     }
   }
-  async updateForRoleUser(
-    { userId, role }: { userId: string, role: string }
-  ): Promise<any> {
+  async updateForRoleUser({
+    userId,
+    role,
+  }: {
+    userId: string;
+    role: string;
+  }): Promise<any> {
     const user = await this.findById(userId);
     if (!user) throw new Error("Usuario não encontrado");
     await this.repository.updateForRoleUser({
       role,
-      userId
+      userId,
     });
     this.notify("update-permission", { userId });
   }
   async findById(id: string): Promise<UserAuthentication> {
     const output = await this.repository.findByUnique({
       where: {
-        id
-      }
+        id,
+      },
     });
     return output;
   }
@@ -122,7 +140,7 @@ export default class UserService extends Observable {
       salt: undefined,
     }));
     // this.cache.Set("users", JSON.stringify(users))
-    return users
+    return users;
   }
   async delete(id: string): Promise<boolean> {
     try {

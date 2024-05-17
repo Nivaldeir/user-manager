@@ -18,12 +18,17 @@ export default class Middlware {
     ) {
       const originalMethod = descriptor.value;
       descriptor.value = async function (req: any, res: any, next: any) {
+        console.log(req.headers.authorization);
         const token = req.headers.authorization.split(" ")[1];
-        const user = Middlware.factory.tokenService
-          .verify(token) as any
-        let permissions = (await Middlware.factory.userService.gettingPermissions(user.id)).permissions
+        const user = Middlware.factory.tokenService.verify(token) as any;
+        let permissions = (
+          await Middlware.factory.userService.gettingPermissions(user.id)
+        ).permissions;
 
-        if (!user || !permissionRequired.every(perm => permissions?.includes(perm))) {
+        if (
+          !user ||
+          !permissionRequired.every((perm) => permissions?.includes(perm))
+        ) {
           return res.status(403).send({ error: "Acesso negado" });
         }
         return originalMethod.call(this, req, res, next);
