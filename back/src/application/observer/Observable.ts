@@ -1,4 +1,3 @@
-
 export default class Observable {
     observers: Array<any> = []
     add(observer) {
@@ -6,11 +5,11 @@ export default class Observable {
         return this
     }
     remove(observer) {
-        this.observers = this.observers.filter(obs => obs !== observer);
+        this.observers = this.observers.filter((obs) => obs !== observer)
     }
     notify(event: string, data: any) {
-        this.observers.forEach(observer => {
-            observer.update(event, data);
-        });
+        this.observers.forEach((observer) => {
+            observer.update(event, data)
+        })
     }
 }

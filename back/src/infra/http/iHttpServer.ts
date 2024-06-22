@@ -1,12 +1,12 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express'
 
 export default interface IHttpServer {
-  on(params: InputHttp): any;
-  listen(port: number): void;
+    on(params: InputHttp): any
+    listen(port: number): void
 }
 
 export type InputHttp = {
-  method: "get" | "post" | "put" | "delete";
-  url: string;
-  callback: (req: Request, res: Response, next: any) => Promise<void>;
-};
+    method: 'get' | 'post' | 'put' | 'delete'
+    url: string
+    callback: (req: Request, res: Response, next: any) => Promise<void>
+}

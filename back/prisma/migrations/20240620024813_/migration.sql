@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "LoginAudit" ALTER COLUMN "device" DROP DEFAULT,
+ALTER COLUMN "ip" DROP DEFAULT;

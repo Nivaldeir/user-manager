@@ -1,4 +1,3 @@
 export default class Observer {
-    update(event, data) {
-    }
+    update(event, data) {}
 }
