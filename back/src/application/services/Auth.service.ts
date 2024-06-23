@@ -70,7 +70,7 @@ export default class AuthService extends Observable implements IAuthRepository {
         }
     }): Promise<any> {
         try {
-            var user = await this.userRepository.findByUnique({
+            const user = await this.userRepository.findByUnique({
                 where: {
                     OR: [{ username: input.username }, { email: input.email }],
                 },

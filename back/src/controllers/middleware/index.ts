@@ -21,7 +21,7 @@ export default class Middlware {
                 console.log(req.headers.authorization)
                 const token = req.headers.authorization.split(' ')[1]
                 const user = Middlware.factory.tokenService.verify(token) as any
-                let permissions = (
+                const permissions = (
                     await Middlware.factory.userService.gettingPermissions(
                         user.id
                     )

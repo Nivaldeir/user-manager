@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import { LoginAuthentication } from '../../src/core/domain/login-authentication'
+import { LoginAuthentication } from '../../src/core/domain/entities/login-authentication'
 describe('Login Audit', () => {
     test('should', () => {
         const input = {

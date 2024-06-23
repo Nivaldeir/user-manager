@@ -22,7 +22,7 @@ export class NodemailerAdapter implements IEmailRepository {
         layout: string
         subject: string
     }): Promise<void> {
-        let htmlContent = await this.readHtml(input.layout, input.object)
+        const htmlContent = await this.readHtml(input.layout, input.object)
         this.mailer.sendMail(
             {
                 to: input.email,

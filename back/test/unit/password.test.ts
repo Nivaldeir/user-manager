@@ -1,4 +1,4 @@
-import { Password } from '../../src/core/domain/password'
+import { Password } from '../../src/core/domain/entities/password'
 
 describe('Password', () => {
     test('should validate password', () => {

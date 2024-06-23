@@ -61,7 +61,7 @@ export default class PermissionController extends HttpController {
     @Middlware.validateSchema(permissionSaveSchema)
     async create(req, res, next) {
         const { name } = req.body
-        let output = await this.factory.permissionService.save({ name })
+        const output = await this.factory.permissionService.save({ name })
         res.send({
             message: 'Sucesso',
             data: output,

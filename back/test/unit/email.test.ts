@@ -1,4 +1,4 @@
-import { Email } from '../../src/core/domain/email'
+import { Email } from '../../src/core/domain/entities/email'
 
 describe('should emails', () => {
     test('should validate email', () => {

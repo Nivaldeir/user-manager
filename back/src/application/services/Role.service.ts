@@ -39,7 +39,7 @@ export default class RoleService implements IRoleRepository {
         return await this.repository.findByUnique(id)
     }
     async find(input?: any): Promise<{ id: string; name: string }[]> {
-        let cached = await this.cache.Get('roles')
+        const cached = await this.cache.Get('roles')
         if (cached) return JSON.parse(cached)
         return await this.repository.find()
     }

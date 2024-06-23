@@ -3,7 +3,7 @@ import { createHash, randomBytes } from 'crypto'
 export class Password {
     constructor(
         readonly value: string,
-        private readonly salt: string
+         readonly salt: string
     ) {}
 
     static create(password: string): Password {

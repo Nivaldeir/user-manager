@@ -1,88 +1,38 @@
-import { PrismaClient } from '@prisma/client'
-import { IPermissionRepository } from '../../application/repository/iPermission'
-import { ErrorHandler } from '../errors/PrismaError'
+import { IPermissionRepository } from '../../core/application/repository/permission-repository'
+import { Permission } from '../../core/domain/entities/permission'
+import { PgAdapter } from '../database/PgAdapter';
 
-export class PermissionRepositoryDatabase implements IPermissionRepository {
-    private readonly errorHandler: ErrorHandler
-    constructor(private readonly db: PrismaClient['permission']) {
-        this.errorHandler = new ErrorHandler()
+export class PermissionDatabase implements IPermissionRepository {
+    constructor(private readonly db: PgAdapter<Permission>) {}
+
+    async create(data: Permission): Promise<Permission> {
+        try {
+            await this.db.query(
+                "INSERT INTO public.permissions (id, name) VALUES ($1, $2)",
+                [data.id, data.name]
+            );
+            return data
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     }
-    async connectToRole({
-        idPermission,
-        nameRole,
-    }: {
-        idPermission: string
-        nameRole: string
-    }): Promise<void> {
-        await this.db.update({
-            where: {
-                id: idPermission,
-            },
-            data: {
-                role: {
-                    connect: {
-                        name: nameRole,
-                    },
-                },
-            },
-        })
-    }
-    async findByUnique(id: string): Promise<{ id: string; name: string }> {
-        return await this.db.findUnique({ where: { id } })
-    }
-    async find(input?: {
-        id: string
-    }): Promise<{ id: string; name: string }[]> {
-        return await this.db.findMany()
+    async update(data: Permission): Promise<boolean> {
+        try {
+            await this.db.query("UPDATE public.permissions SET name = $2 WHERE id = $1",[data.id, data.name])
+            return true
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     }
     async delete(id: string): Promise<boolean> {
         try {
-            await this.db.delete({
-                where: {
-                    id: id,
-                    NOT: [
-                        {
-                            users: {
-                                some: {
-                                    permission: {
-                                        some: {
-                                            id,
-                                        },
-                                    },
-                                },
-                            },
-                        },
-                        {
-                            role: {
-                                some: {
-                                    id: id,
-                                },
-                            },
-                        },
-                    ],
-                },
-            })
-            return true
+            await this.db.query("DELETE FROM public.permissions WHERE id = $1", [id]);
+            return true;
         } catch (error) {
-            return this.errorHandler.handle(error)
+            console.error(error);
+            throw error;
         }
-    }
-
-    async save(input: Omit<{ id: string; name: string }, 'id'>): Promise<any> {
-        const output = await this.db.create({
-            data: input,
-        })
-        return output
-    }
-    async update(
-        input: Partial<Omit<{ id: string; name: string }, 'id'>> & {
-            id: string
-        }
-    ): Promise<any> {
-        const output = await this.db.update({
-            where: { id: input.id },
-            data: input,
-        })
-        return output
     }
 }

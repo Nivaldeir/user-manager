@@ -24,19 +24,19 @@ export default class Logger {
         return Logger._instance
     }
     debug(message: string): void {
-        let body = `[${new Date().toISOString()}]` + `: ${message}`
+        const body = `[${new Date().toISOString()}]` + `: ${message}`
         console.log(this.formatText(body, colors.white))
     }
     warning(message: string): void {
-        let body = `[${new Date().toISOString()}]` + `: ${message}`
+        const body = `[${new Date().toISOString()}]` + `: ${message}`
         console.log(this.formatText(body, colors.yellow))
     }
     success(message: string): void {
-        let body = `[${new Date().toISOString()}]` + `: ${message}`
+        const body = `[${new Date().toISOString()}]` + `: ${message}`
         console.log(this.formatText(body, colors.green))
     }
     error(message: string): void {
-        let body = `[${new Date().toISOString()}]` + `: ${message}`
+        const body = `[${new Date().toISOString()}]` + `: ${message}`
         console.log(this.formatText(body, bold, colors.red))
     }
 }

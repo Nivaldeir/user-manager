@@ -23,6 +23,7 @@ export class LoginAuthentication {
         this.device = props.device
         this.location = props.location
         this.userId = props.userId
+        this.success = props.success
     }
     static create(
         props: Omit<ILoginAuthentication, 'id'>

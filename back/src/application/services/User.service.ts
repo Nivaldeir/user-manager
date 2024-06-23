@@ -32,7 +32,7 @@ export default class UserService extends Observable {
         await this.repository.addingByPermission({ userId, permission })
     }
     async gettingPermissions(userId: string) {
-        var user = await this.repository.findByUnique({
+        const user = await this.repository.findByUnique({
             where: {
                 id: userId,
             },
