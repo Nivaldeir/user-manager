@@ -28,3 +28,14 @@ create table "user_permission" (
     FOREIGN KEY (user_id) REFERENCES "users"(id),
     FOREIGN KEY (permission_id) REFERENCES "permissions"(id)
 );
+
+create table "login_auth" (
+    id UUID NOT NULL,
+    user_id UUID NOT NULL,
+    ip VARCHAR(20) NOT NULL,
+    device VARCHAR(255),
+    location VARCHAR(255),
+    success BOOLEAN,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES "users" (id)
+);

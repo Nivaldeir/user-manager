@@ -4,7 +4,7 @@ export class FindUser {
   constructor(private readonly userRepository: IUserRepository){}
   async execute(input:Input){
     try {
-      return await this.userRepository.findBy(input.id)
+      return await this.userRepository.findById(input.id)
     } catch (error) {
       throw error
     }

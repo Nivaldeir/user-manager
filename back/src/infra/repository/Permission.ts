@@ -4,6 +4,9 @@ import { PgAdapter } from '../database/PgAdapter';
 
 export class PermissionDatabase implements IPermissionRepository {
     constructor(private readonly db: PgAdapter<Permission>) {}
+    findById(id: string): Promise<Permission> {
+        throw new Error('Method not implemented.');
+    }
 
     async create(data: Permission): Promise<Permission> {
         try {

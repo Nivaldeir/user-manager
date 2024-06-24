@@ -2,10 +2,35 @@ import { IUserRepository } from "../../core/application/repository/user-reposito
 import { Email } from "../../core/domain/entities/email";
 import { Password } from "../../core/domain/entities/password";
 import { User } from "../../core/domain/entities/user";
-import { PgAdapter } from "../database/PgAdapter";
+import DatabaseConnection from "../database/DatabaseConnection";
 
 export class UserDatabase implements IUserRepository {
-    constructor(private readonly db: PgAdapter<User>) {}
+    constructor(private readonly db: DatabaseConnection<User>) {}
+    async findById(id: string): Promise<User> {
+        const [user] = await this.db.query('SELECT * FROM users WHERE id = $1', [id]);
+        if (!user) {
+            throw new Error('user not found');
+        }
+        return new User({
+        active: user.active,
+        email: new Email(user.email),
+        id: user.id,
+        password: new Password(user.password_hash, user.password_salt),
+        permissions: [],
+        username: user.username,
+        });
+    }
+    async findByEmail(email: string): Promise<User> {
+       const [user] = await this.db.query('SELECT * FROM public.users WHERE email = $1', [email]) 
+       return new User({
+        active: user.active,
+        email: new Email(user.email),
+        id: user.id,
+        password: new Password(user.password_hash, user.password_salt),
+        permissions: [],
+        username: user.username
+       })
+    }
 
     async create(data: User): Promise<User> {
         try {

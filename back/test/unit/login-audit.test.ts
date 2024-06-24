@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import { LoginAuthentication } from '../../src/core/domain/entities/login-authentication'
+import { LoginHistoryAuthentication } from '../../src/core/domain/entities/login-authentication'
 describe('Login Audit', () => {
     test('should', () => {
         const input = {
@@ -9,7 +9,7 @@ describe('Login Audit', () => {
             location: 'Sao Paulo',
             success: true,
         }
-        const login = LoginAuthentication.create(input)
+        const login = LoginHistoryAuthentication.create(input)
         expect(login.id).toBeDefined()
     })
 })
