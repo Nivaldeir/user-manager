@@ -4,7 +4,7 @@ import { Password } from "../../entities/password";
 export class UpdateUser {
   constructor(private readonly userRepository: IUserRepository){}
   async execute(input:Input){
-    const user = await this.userRepository.findBy(input.id)
+    const user = await this.userRepository.findById(input.id)
     if(!user)throw new Error("User not found")
     user.active = input.active ?? user.active
     user.username = input.username ?? user.username
