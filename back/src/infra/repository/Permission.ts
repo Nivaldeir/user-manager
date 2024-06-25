@@ -1,12 +1,15 @@
 import { IPermissionRepository } from '../../core/application/repository/permission-repository'
 import { Permission } from '../../core/domain/entities/permission'
 import DatabaseConnection from '../database/DatabaseConnection';
-import { PgAdapter } from '../database/PgAdapter';
 
 export class PermissionDatabase implements IPermissionRepository {
     constructor(private readonly db: DatabaseConnection<Permission>) {}
-    findById(id: string): Promise<Permission> {
-        throw new Error('Method not implemented.');
+    async findById(id: string): Promise<Permission> {
+        const permissions = await this.db.query("SELECT p.id, p.name FROM permissions p JOIN user_permission up ON p.id = up.permission_id WHERE id = $1", [id])
+        return permissions.map((permission: any) => new Permission({
+            id: permission.id,
+            name: permission.name
+        }))
     }
 
     async create(data: Permission): Promise<Permission> {
