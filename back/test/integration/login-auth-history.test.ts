@@ -21,7 +21,7 @@ describe("Permission with testcontainer", ()=>{
   })
   test("should create permission", async ()=>{
     const CreateUsecase = new CreateLoginAuth(dbAdapter)
-    const output = await  CreateUsecase.execute({...input, userId:"a3f2399c-a5d1-49ba-a15c-93bad9c63647"})
+    const output = await  CreateUsecase.execute({...input, userId: "ca7ac207-999a-4ac6-9b64-13406645a3c7"})
     expect(output.device).toBe(input.device)
     expect(output.id).toBeDefined()
   })

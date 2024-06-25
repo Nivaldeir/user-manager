@@ -3,17 +3,20 @@ import { User } from '../../src/core/domain/entities/user'
 import { Permission } from '../../src/core/domain/entities/permission'
 
 describe('user', () => {
+    const input = {
+        username: 'username',
+        email: 'email@teste.com.br',
+        password: 'password',
+        permissions: []
+    }
+
     test('should create a instance of user', () => {
-        const input = {
-            username: 'username',
-            email: 'email@teste.com.br',
-            password: 'password',
-            role: randomUUID(),
-        }
+
         const userAuthentication = User.create({
             username: input.username,
             email: input.email,
             password: input.password,
+            permissions:input.permissions
         })
         expect(userAuthentication.id).toBeDefined()
         expect(userAuthentication.email.value).toBe(input.email)
@@ -21,16 +24,11 @@ describe('user', () => {
     })
 
     test('should include permission', () => {
-        const input = {
-            username: 'username',
-            email: 'email@teste.com.br',
-            password: 'password',
-            role: randomUUID(),
-        }
         const userAuthentication = User.create({
             username: input.username,
             email: input.email,
             password: input.password,
+            permissions:input.permissions
         })
 
         const permission = Permission.create("ADMIN")
@@ -39,16 +37,11 @@ describe('user', () => {
     })
 
     test('should remove permission', () => {
-        const input = {
-            username: 'username',
-            email: 'email@teste.com.br',
-            password: 'password',
-            role: randomUUID(),
-        }
         const userAuthentication = User.create({
             username: input.username,
             email: input.email,
             password: input.password,
+            permissions:input.permissions
         })
 
         const permission = Permission.create("ADMIN")
@@ -58,16 +51,11 @@ describe('user', () => {
     })
 
     test('should validate whether the user has permission and return true', () => {
-        const input = {
-            username: 'username',
-            email: 'email@teste.com.br',
-            password: 'password',
-            role: randomUUID(),
-        }
         const userAuthentication = User.create({
             username: input.username,
             email: input.email,
             password: input.password,
+            permissions:input.permissions
         })
 
         const permission = Permission.create("ADMIN")
@@ -75,16 +63,11 @@ describe('user', () => {
         expect(userAuthentication.checkPermission("ADMIN")).toBeTruthy()
     })
     test('should validate whether the user has permission and return false', () => {
-        const input = {
-            username: 'username',
-            email: 'email@teste.com.br',
-            password: 'password',
-            role: randomUUID(),
-        }
         const userAuthentication = User.create({
             username: input.username,
             email: input.email,
             password: input.password,
+            permissions:input.permissions
         })
 
         const permission = Permission.create("ADMIN")
@@ -102,6 +85,7 @@ describe('user', () => {
             username: input.username,
             email: input.email,
             password: input.password,
+            permissions: []
         })
 
         const permission = Permission.create("ADMIN")

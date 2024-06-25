@@ -30,7 +30,14 @@ describe("User with testcontainer", () => {
     const createUserUseCase = new CreateUser(userRepository);
     return await createUserUseCase.execute(input);
   };
+  beforeEach(async () => {
+    jest.setTimeout(60000);
+    await client.query('BEGIN');
+  });
 
+  afterEach(async () => {
+    await client.query('ROLLBACK');
+  });
   test("should create a new user", async () => {
     const newUser = await createUser();
     const findUserUseCase = new FindUser(userRepository);
@@ -63,25 +70,24 @@ describe("User with testcontainer", () => {
     const findUserUseCase = new FindUser(userRepository);
     await expect(findUserUseCase.execute({ id: newUser.id })).rejects.toThrow("user not found");
   });
- 
-  
-  test("should authetication for user", async () => {
+
+  test("should authenticate a user", async () => {
     await createUser();
     const authUserUseCase = new AuthUser(userRepository, loginHistoryRepository);
     const output = await authUserUseCase.execute(input);
-    const isValid = Token.verify(output.token)
+    const isValid = Token.verify(output.token);
 
-    expect(isValid).toBeTruthy()
-  })
-  test("should return erro am authetication for user", async () => {
+    expect(isValid).toBeTruthy();
+  });
+
+  test("should throw an error on authentication failure", async () => {
     const authUserUseCase = new AuthUser(userRepository, loginHistoryRepository);
-    
+
     await expect(authUserUseCase.execute({
       ...input,
       password: "123",
     })).rejects.toThrow("User test@example.com not authenticated");
-  })
-
+  });
   beforeEach((): void => {
     jest.setTimeout(60000);
   });
