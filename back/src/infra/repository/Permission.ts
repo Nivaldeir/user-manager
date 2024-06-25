@@ -1,9 +1,10 @@
 import { IPermissionRepository } from '../../core/application/repository/permission-repository'
 import { Permission } from '../../core/domain/entities/permission'
+import DatabaseConnection from '../database/DatabaseConnection';
 import { PgAdapter } from '../database/PgAdapter';
 
 export class PermissionDatabase implements IPermissionRepository {
-    constructor(private readonly db: PgAdapter<Permission>) {}
+    constructor(private readonly db: DatabaseConnection<Permission>) {}
     findById(id: string): Promise<Permission> {
         throw new Error('Method not implemented.');
     }

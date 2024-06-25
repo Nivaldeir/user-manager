@@ -16,6 +16,8 @@ type IUserCreate = {
     username: string
     email: string
     password: string
+    permissions: Permission[]
+
 }
 
 export class User extends PermissionHandler {
@@ -24,7 +26,7 @@ export class User extends PermissionHandler {
     active: boolean
     email: Email
     password: Password
-    permissions: Permission[] = []
+    permissions: Permission []
     constructor(props: IUser) {
         super()
         this.id = props.id
@@ -32,6 +34,7 @@ export class User extends PermissionHandler {
         this.email = props.email
         this.password = props.password
         this.active = props.active
+        this.permissions = props.permissions
     }
     static create(
         props: Omit<IUserCreate, 'id'>
@@ -43,7 +46,7 @@ export class User extends PermissionHandler {
             password: Password.create(props.password),
             username: props.username,
             active: true,
-            permissions: [],
+            permissions: props.permissions,
         })
     }
     addPermission(permission: Permission): void {

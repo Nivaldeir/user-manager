@@ -9,7 +9,7 @@ describe("Permission with testcontainer", ()=>{
   let client: PgAdapter<Permission>
   let dbAdapter: PermissionDatabase
   const input = {
-    name: ""
+    name: "ADMIN"
   }
   beforeAll(async () => {
     client = new PgAdapter("postgresql://postgres:postgres@localhost:5432/postgres");
@@ -21,32 +21,29 @@ describe("Permission with testcontainer", ()=>{
   })
   test("should create permission", async ()=>{
     const permissionCreateUsecase = new CreatePermission(dbAdapter)
-    const output =await  permissionCreateUsecase.execute({
-      name: "ADMIN"
-    })
+    const output = await  permissionCreateUsecase.execute(input)
+    
     expect(output.name).toBe("ADMIN")
     expect(output.id).toBeDefined()
   })
 
   test("should update the permission", async ()=>{
     const permissionCreateUsecase = new CreatePermission(dbAdapter)
-    const outputCreate = await  permissionCreateUsecase.execute({
-      name: "ADMIN"
-    })
+    const outputCreate = await  permissionCreateUsecase.execute(input)
     const permissionUpdateUsecase = new UpdatePermission(dbAdapter)
     const outputUpdate = await permissionUpdateUsecase.execute({
       id: outputCreate.id,
       name: "ADMIN_UPDATE"
     })
+
     expect(outputUpdate).toBeTruthy()
   })
   test("should delete the permission", async ()=>{
     const permissionCreateUsecase = new CreatePermission(dbAdapter)
-    const outputCreate = await  permissionCreateUsecase.execute({
-      name: "ADMIN"
-    })
+    const outputCreate = await  permissionCreateUsecase.execute(input)
     const permissionUpdateUsecase = new DeletePermission(dbAdapter)
     const outputDelete = await permissionUpdateUsecase.execute({id: outputCreate.id})
+
     expect(outputDelete).toBeTruthy()
   })
 })
