@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import UserAuthenticationDatabase from '../../infra/repository/user'
-import LoginAuditRepositoryDatabase from '../../infra/repository/LoginAuditRepositoryDatabase'
+import LoginAuditRepositoryDatabase from '../../infra/repository/login-auth-history'
 import { PermissionRepositoryDatabase } from '../../infra/repository/permission'
 import { RoleRepositoryDatabase } from '../../infra/repository/Role'
 import AuthService from '../services/Auth.service'
