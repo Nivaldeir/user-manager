@@ -13,7 +13,7 @@ export class Token {
       const valid =  jwt.verify(token, "123456")
       return valid
     }catch (e){
-      throw new Error("Token invalid")
+      return false
     }
   }
 }

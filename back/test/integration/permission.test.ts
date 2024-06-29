@@ -1,11 +1,11 @@
 import { Permission } from "../../src/core/domain/entities/permission"
-import { DeletePermission } from "../../src/core/domain/use_cases/permission/create-delete"
+import { DeletePermission } from "../../src/core/domain/use_cases/permission/delete-permission"
 import { CreatePermission } from "../../src/core/domain/use_cases/permission/create-permission"
-import { UpdatePermission } from "../../src/core/domain/use_cases/permission/create-update"
+import { UpdatePermission } from "../../src/core/domain/use_cases/permission/update-permission"
 import { PgAdapter } from "../../src/infra/database/PgAdapter"
-import { PermissionDatabase } from "../../src/infra/repository/permission"
+import { PermissionDatabase } from "../../src/infra/database/repository/permission"
 
-describe("Permission with testcontainer", ()=>{
+describe("Permission", ()=>{
   let client: PgAdapter<Permission>
   let dbAdapter: PermissionDatabase
   const input = {
