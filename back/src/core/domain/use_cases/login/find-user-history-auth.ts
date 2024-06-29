@@ -3,6 +3,7 @@ import { ILoginAuthHistoryRepository } from "../../../application/repository/log
 export class FindUserHistoryAuth {
   constructor(private readonly loginRepository: ILoginAuthHistoryRepository){}
   async execute(input:Input){
+    console.log(input)
     return await this.loginRepository.findBy({
       id: input.userId
     })

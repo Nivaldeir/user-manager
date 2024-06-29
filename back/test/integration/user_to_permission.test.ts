@@ -3,10 +3,10 @@ import { CreateUser } from "../../src/core/domain/use_cases/user/create-user";
 import { FindUser } from "../../src/core/domain/use_cases/user/find-user";
 import { UpdateUser } from "../../src/core/domain/use_cases/user/update-user";
 import { PgAdapter } from "../../src/infra/database/PgAdapter";
-import { PermissionDatabase } from "../../src/infra/repository/permission";
-import { UserDatabase } from "../../src/infra/repository/user";
+import { PermissionDatabase } from "../../src/infra/database/repository/permission";
+import { UserDatabase } from "../../src/infra/database/repository/user";
 
-describe("permission to user", ()=>{
+describe("User to Permission", ()=>{
   let client: PgAdapter<UserDatabase | PermissionDatabase>;
   let userRepository: UserDatabase;
   let permissionRepository: PermissionDatabase;

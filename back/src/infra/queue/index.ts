@@ -1,13 +1,13 @@
-import { UsecaseFactory } from '../../application/factory/UserFactory'
+import { CasesFactory } from '../../core/application/factory/cases-factory'
 import Injectable from '../di/Injectable'
-import Queue from './IQueue'
+import Queue from './Iqueue'
 
 export default class {
     @Injectable('factory_usecases')
-    factory: UsecaseFactory
+    factory: CasesFactory
     constructor(readonly queue: Queue) {
         queue.consume('create-user', async (input: any) => {
-            const output = await this.factory.userService.save({
+            await this.factory.createUser.execute({
                 email: input.email,
                 password: input.password,
                 ...input,

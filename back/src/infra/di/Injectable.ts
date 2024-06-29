@@ -1,4 +1,4 @@
-import Registry from './Registry'
+import Registry from './registry'
 
 export default function Injectable(name: string) {
     return (target: any, propertyKey: string) => {

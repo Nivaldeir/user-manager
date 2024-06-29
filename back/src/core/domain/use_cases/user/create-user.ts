@@ -1,6 +1,7 @@
 import { User } from "../../entities/user"
 import { IUserRepository } from "../../../application/repository/user-repository"
 import { Permission } from "../../entities/permission"
+import { UserOutputDto } from "./dto"
 
 const permission = [
   {
@@ -27,12 +28,18 @@ const permission = [
 
 export class CreateUser {
   constructor(private readonly userRepository: IUserRepository){}
-  async execute(input: Input){
+  async execute(input: Input):Promise<UserOutputDto>{
     const user = User.create({...input,
       permissions: permission.map(permission=> new Permission(permission))
     })
     const output = await this.userRepository.create(user)
-    return output
+    return {
+      active: output.active,
+      email: output.email.value,
+      id: output.id,
+      permissions: output.permissions.map(e=>e.name),
+      username: output.username
+    }
   }
 }
 
